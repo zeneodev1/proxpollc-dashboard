@@ -1,0 +1,114 @@
+
+<div class="container my-4">
+
+  <div class="w-100 px-2">
+    <app-card [collapsible]="false">
+
+      <div style="margin: -1.1rem -1.5rem">
+        <div class="table-header">
+          <span class="table-title">Orders list</span>
+          <button class="table-header-btn filter-btn ms-auto me-2">
+            <span class="">
+            <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24">
+    <g>
+        <rect fill="none" height="24" width="24"/>
+    </g>
+    <g>
+        <g>
+            <path d="M11,18h2c0.55,0,1-0.45,1-1l0,0c0-0.55-0.45-1-1-1h-2c-0.55,0-1,0.45-1,1l0,0C10,17.55,10.45,18,11,18z M3,7L3,7 c0,0.55,0.45,1,1,1h16c0.55,0,1-0.45,1-1l0,0c0-0.55-0.45-1-1-1H4C3.45,6,3,6.45,3,7z M7,13h10c0.55,0,1-0.45,1-1l0,0 c0-0.55-0.45-1-1-1H7c-0.55,0-1,0.45-1,1l0,0C6,12.55,6.45,13,7,13z"/>
+        </g>
+    </g>
+</svg>
+          </span>
+          </button>
+          <button  class="table-header-btn sort-btn">
+            <span>
+            <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24">
+    <g>
+        <rect fill="none" height="24" width="24"/>
+    </g>
+    <g>
+        <g>
+            <path d="M4,18h4c0.55,0,1-0.45,1-1l0,0c0-0.55-0.45-1-1-1H4c-0.55,0-1,0.45-1,1l0,0C3,17.55,3.45,18,4,18z M3,7L3,7 c0,0.55,0.45,1,1,1h16c0.55,0,1-0.45,1-1l0,0c0-0.55-0.45-1-1-1H4C3.45,6,3,6.45,3,7z M4,13h10c0.55,0,1-0.45,1-1l0,0 c0-0.55-0.45-1-1-1H4c-0.55,0-1,0.45-1,1l0,0C3,12.55,3.45,13,4,13z"/>
+        </g>
+    </g>
+</svg>
+          </span>
+          </button>
+
+
+        </div>
+
+        <div style="min-height: 350px"
+             class="d-flex align-items-center justify-content-center"
+             *ngIf="!isLoading && orders.length == 0">
+          <p>There is no Orders yet.</p>
+        </div>
+
+        <div *ngIf="!isLoading && orders.length != 0">
+          <table class="w-100">
+            <tr style="background: #F3F4F5; border-bottom: 0; padding: 5px 0;">
+              <th style="width: 220px">#Id</th>
+              <th style="width: 300px">Title</th>
+              <th style="width: 100px">Price</th>
+              <th style="width: 100px">Stock</th>
+            </tr>
+
+            <tr *ngFor="let o of orders">
+              <td>{{o.id}}</td>
+              <td>{{o.email}}</td>
+              <td>{{o.payment}}$</td>
+              <td>{{o.method}}</td>
+            </tr>
+          </table>
+          <!--          <div class="table-footer d-flex align-items-center">-->
+
+          <!--            <div class="ms-auto me-2 page-details">-->
+          <!--              <span class="current">1 - 10</span>-->
+          <!--              <span class="">of 18</span>-->
+          <!--            </div>-->
+
+          <!--            <div class="page-arrows d-flex align-items-center">-->
+          <!--              <button class="arrow">-->
+          <!--                <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24">-->
+          <!--                  <g>-->
+          <!--                    <rect fill="none" height="24" width="24" y="0"/>-->
+          <!--                  </g>-->
+          <!--                  <g>-->
+          <!--                    <g>-->
+          <!--                      <g>-->
+          <!--                        <path d="M15.29,15.46l-3.88-3.88l3.88-3.88c0.39-0.39,0.39-1.02,0-1.41l0,0c-0.39-0.39-1.02-0.39-1.41,0l-4.59,4.59 c-0.39,0.39-0.39,1.02,0,1.41l4.59,4.59c0.39,0.39,1.02,0.39,1.41,0l0,0C15.67,16.49,15.68,15.85,15.29,15.46z"/>-->
+          <!--                      </g>-->
+          <!--                    </g>-->
+          <!--                  </g>-->
+          <!--                </svg>-->
+          <!--              </button>-->
+          <!--              <button class="arrow active">-->
+          <!--                <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24">-->
+          <!--                  <g>-->
+          <!--                    <rect fill="none" height="24" width="24" y="0"/>-->
+          <!--                  </g>-->
+          <!--                  <g>-->
+          <!--                    <g>-->
+          <!--                      <g>-->
+          <!--                        <path d="M9.29,15.46l3.88-3.88L9.29,7.7c-0.39-0.39-0.39-1.02,0-1.41l0,0c0.39-0.39,1.02-0.39,1.41,0l4.59,4.59 c0.39,0.39,0.39,1.02,0,1.41l-4.59,4.59c-0.39,0.39-1.02,0.39-1.41,0l0,0C8.91,16.49,8.9,15.85,9.29,15.46z"/>-->
+          <!--                      </g>-->
+          <!--                    </g>-->
+          <!--                  </g>-->
+          <!--                </svg>-->
+          <!--              </button>-->
+          <!--            </div>-->
+          <!--          </div>-->
+        </div>
+
+        <div *ngIf="isLoading" style="min-height: 350px" class="d-flex align-items-center justify-content-center">
+          <app-spinner [color]="'#2d89ef'" style="transform: scale(2)"></app-spinner>
+        </div>
+
+      </div>
+    </app-card>
+
+  </div>
+
+
+</div>

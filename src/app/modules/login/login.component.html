@@ -1,0 +1,67 @@
+<div class="w-100" style="height: 100vh">
+  <div class="d-flex align-items-center justify-content-center h-100">
+    <div class="d-flex align-items-center flex-column">
+      <svg class="logo" xmlns="http://www.w3.org/2000/svg" width="35px" viewBox="0 0 115 138.39">
+        <defs>
+          <style>.cls-1{fill:#2d89ef;}.cls-2{fill:#0A5474;}</style>
+        </defs>
+        <title>Asset 1</title>
+        <g id="Layer_2">
+          <g id="OBJECTS">
+            <polygon class="cls-1" points="51.92 0 51.92 58.27 115 94.69 115 36.42 51.92 0"/>
+            <polygon class="cls-2" points="115 94.69 77.15 116.54 77.15 72.84 115 94.69"/>
+            <polygon class="cls-1" points="63.08 138.39 63.08 80.12 0 43.7 0 101.97 63.08 138.39"/>
+            <polygon class="cls-2" points="0 43.7 37.85 21.85 37.85 65.55 0 43.7"/>
+          </g>
+        </g>
+      </svg>
+      <div class="form-wrapper">
+
+        <div class="form" [formGroup]="loginForm" >
+
+          <span class="title d-block mb-3">Login to your account</span>
+
+          <div class="text-danger" *ngIf="loginError">
+            {{loginError}}
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input formControlName="email" placeholder="Email address" type="email" class="form-control" id="email" aria-describedby="emailHelp">
+            <div *ngIf="email !== null && (email.invalid && (email.dirty))"
+                 class="text-danger mt-2">
+
+              <div *ngIf="email.errors != null && email.errors.required">
+                Email is required.
+              </div>
+              <div *ngIf="email.errors != null && email.errors.email">
+                Email is invalid
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input formControlName="password" placeholder="Password" type="password" class="form-control" id="password">
+            <div *ngIf="password !== null && (password.invalid && (password.dirty))"
+                 class="text-danger mt-2">
+
+              <div *ngIf="password.errors != null && password.errors.required">
+                Password is required.
+              </div>
+              <div *ngIf="password.errors != null && password.errors.minlength">
+                Password must be at least 6 characters.
+              </div>
+            </div>
+          </div>
+          <div class="mb-3 d-flex">
+            <a class="form-link ms-auto">change password</a>
+          </div>
+          <button (click)="login()" type="submit" class="btn btn-primary w-100 d-flex justify-content-center submit-btn">
+            <span *ngIf="!isSubmitting">Save changes</span>
+            <app-spinner style="transform: scale(0.9)" *ngIf="isSubmitting"></app-spinner>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

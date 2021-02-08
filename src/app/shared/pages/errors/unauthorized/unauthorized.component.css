@@ -1,0 +1,35 @@
+
+.error-code {
+  font-size: 70px;
+  margin-bottom: 25px;
+  font-weight: 300;
+  color: #9aa0ac;
+}
+
+.error {
+  font-size: 27px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.error-message {
+  font-size: 19px;
+  margin-bottom: 40px;
+  color: #8c9099;
+}
+
+.back-btn {
+  font-size: 14px;
+  background: #316CBE;
+  font-weight: 600;
+}
+
+.back-btn:hover {
+  background: #2b60a9;
+}
+
+.back-btn svg {
+  width: 16px;
+  margin-right: 7px;
+  fill: white;
+}
