@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api_url: 'http://proxpollc-api.herokuapp.com'
+  api_url: 'https://proxpollc-api.herokuapp.com'
 };
