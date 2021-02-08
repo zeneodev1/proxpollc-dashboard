@@ -49,45 +49,6 @@ nav .notification .notification-collapsed.expanded {
 }
 
 
-nav .notification .notification-collapsed .not-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-nav .notification .notification-collapsed .not-list .not-link {
-  padding: 7px 10px 7px 20px;
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  line-height: 1;
-  font-size: 16px;
-  color: #6e7687;
-  cursor: pointer;
-}
-
-nav .notification .notification-collapsed .not-list .not-link:hover {
-  background: rgba(245, 245, 245, 0.5);
-}
-
-nav .notification .notification-collapsed .not-list .not-link .person-name {
-  font-weight: 600;
-}
-
-nav .notification .notification-collapsed .not-list .not-link .time {
-  display: block;
-  margin-top: 3px;
-  font-size: 14px;
-}
-
-nav .notification .notification-collapsed .not-link .person-pic img {
-  width: 40px;
-  height: 40px;
-  overflow: hidden;
-  border-radius: 50%;
-  margin-right: 12px;
-}
-
 
 nav .profile .pro-pic {
   width: 35px;
