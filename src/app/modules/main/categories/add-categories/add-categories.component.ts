@@ -57,7 +57,7 @@ export class AddCategoriesComponent implements OnInit {
   }
 
   submit(): boolean {
-    if (this.categoryForm.valid) {
+    if (this.categoryForm.valid && !this.isSubmitting) {
       const category = this.getCategory();
       this.isSubmitting = true;
       this.categoriesService.saveCategory(category).subscribe(value => {

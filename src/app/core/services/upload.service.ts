@@ -16,4 +16,8 @@ export class UploadService {
     fileFormDate.append('file', file);
     return this.httpClient.post(this.API_URL + '/files/upload', fileFormDate);
   }
+
+  deleteFile(url: string): void {
+    // this.httpClient.delete(url).subscribe();
+  }
 }

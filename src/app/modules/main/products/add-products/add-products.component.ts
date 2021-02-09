@@ -8,6 +8,7 @@ import {Department} from '../../../../shared/model/department';
 import {Category} from '../../../../shared/model/category';
 import {DepartmentsService} from '../../../../core/services/departments.service';
 import {CategoriesService} from '../../../../core/services/categories.service';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-add-products',
@@ -15,11 +16,13 @@ import {CategoriesService} from '../../../../core/services/categories.service';
   styleUrls: ['./add-products.component.css']
 })
 export class AddProductsComponent implements OnInit {
+  private api_url: string = environment.api_url;
   public tags: string[] = [];
   public images: string[] = [];
   public productForm: FormGroup;
   public statusHint = 0;
   public isSubmitting: boolean;
+  public isUploading: boolean;
   isDiscarding: boolean;
   public loaded: boolean;
   public departments: Department[];
@@ -45,6 +48,7 @@ export class AddProductsComponent implements OnInit {
     );
     this.isSubmitting = false;
     this.isDiscarding = false;
+    this.isUploading = false;
     this.loaded = false;
     this.departments = [];
     this.categories = [];
@@ -63,7 +67,7 @@ export class AddProductsComponent implements OnInit {
   }
 
   submit(): boolean {
-    console.log(this.productForm.valid);
+    console.log(this.productForm.valid && !this.isSubmitting);
     if (this.productForm.valid) {
       const product = new Product();
       product.title = this.productForm.get('title')?.value;
@@ -97,13 +101,22 @@ export class AddProductsComponent implements OnInit {
   deleteTag(i: number): void {
     this.tags.splice(i, 1);
   }
-
   onFileChange($event: any): void {
     const selectedFile = $event.target.files[0];
+    this.isUploading = true;
     this.uploadService.uploadFile(selectedFile).subscribe(value => {
+      this.isUploading = false;
       console.log(value);
-      this.images.push(value[0].path);
+      this.images.push(this.api_url + '/files/' + value[0].name);
+    }, () => {
+      this.isUploading = false;
     });
+  }
+
+  deleteImage(i: number): void {
+    const url = this.images[i];
+    this.images.splice(i, 1);
+    this.uploadService.deleteFile(url);
   }
 
   discard(): void {

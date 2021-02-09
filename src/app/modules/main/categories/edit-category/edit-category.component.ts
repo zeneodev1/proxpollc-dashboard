@@ -71,7 +71,7 @@ export class EditCategoryComponent implements OnInit {
 
 
   submit(): boolean {
-    if (this.categoryForm.valid) {
+    if (this.categoryForm.valid && !this.isSubmitting) {
       this.category.name = this.categoryForm.get('name')?.value;
       this.category.description = this.categoryForm.get('description')?.value;
       this.category.tags = this.tags;

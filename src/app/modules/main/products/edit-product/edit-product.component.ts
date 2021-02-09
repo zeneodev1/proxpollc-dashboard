@@ -8,6 +8,7 @@ import {DepartmentsService} from '../../../../core/services/departments.service'
 import {CategoriesService} from '../../../../core/services/categories.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Product} from '../../../../shared/model/product';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-edit-product',
@@ -15,11 +16,13 @@ import {Product} from '../../../../shared/model/product';
   styleUrls: ['./edit-product.component.css']
 })
 export class EditProductComponent implements OnInit {
+  private api_url: string = environment.api_url;
   public tags: string[] = [];
   public images: string[] = [];
   public productForm: FormGroup;
   public statusHint = 0;
   public isSubmitting: boolean;
+  public isUploading: boolean;
   isDiscarding: boolean;
   public loaded: boolean;
   public product: Product;
@@ -48,6 +51,7 @@ export class EditProductComponent implements OnInit {
     this.isSubmitting = false;
     this.isDiscarding = false;
     this.loaded = false;
+    this.isUploading = false;
     this.product = new Product();
     this.departments = [];
     this.categories = [];
@@ -94,7 +98,7 @@ export class EditProductComponent implements OnInit {
   }
 
   submit(): boolean {
-    console.log(this.productForm.valid);
+    console.log(this.productForm.valid && !this.isSubmitting);
     if (this.productForm.valid) {
       this.product.title = this.productForm.get('title')?.value;
       this.product.description = this.productForm.get('description')?.value;
@@ -130,10 +134,20 @@ export class EditProductComponent implements OnInit {
 
   onFileChange($event: any): void {
     const selectedFile = $event.target.files[0];
+    this.isUploading = true;
     this.uploadService.uploadFile(selectedFile).subscribe(value => {
+      this.isUploading = false;
       console.log(value);
-      this.images.push(value[0].path);
+      this.images.push(this.api_url + '/files/' + value[0].name);
+    }, () => {
+      this.isUploading = false;
     });
+  }
+
+  deleteImage(i: number): void {
+    const url = this.images[i];
+    this.images.splice(i, 1);
+    this.uploadService.deleteFile(url);
   }
 
   discard(): void {

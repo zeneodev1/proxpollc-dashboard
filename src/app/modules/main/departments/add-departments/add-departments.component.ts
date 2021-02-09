@@ -4,6 +4,7 @@ import {UploadService} from '../../../../core/services/upload.service';
 import {DepartmentsService} from '../../../../core/services/departments.service';
 import {Department} from '../../../../shared/model/department';
 import {Router} from '@angular/router';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-add-departments',
@@ -11,11 +12,13 @@ import {Router} from '@angular/router';
   styleUrls: ['./add-departments.component.css']
 })
 export class AddDepartmentsComponent implements OnInit {
+  private api_url: string = environment.api_url;
   public tags: string[] = [];
   public images: string[] = [];
   public departmentForm: FormGroup;
   public statusHint = 0;
   public isSubmitting: boolean;
+  public isUploading: boolean;
   isDiscarding: boolean;
   constructor(private uploadService: UploadService,
               private departmentsService: DepartmentsService,
@@ -29,6 +32,7 @@ export class AddDepartmentsComponent implements OnInit {
     );
     this.isSubmitting = false;
     this.isDiscarding = false;
+    this.isUploading = false;
   }
 
   ngOnInit(): void {
@@ -42,7 +46,7 @@ export class AddDepartmentsComponent implements OnInit {
   }
 
   submit($event?: Event): boolean {
-    if (this.departmentForm.valid) {
+    if (this.departmentForm.valid && !this.isSubmitting) {
       const department = new Department();
       department.name = this.departmentForm.get('name')?.value;
       department.description = this.departmentForm.get('description')?.value;
@@ -67,10 +71,20 @@ export class AddDepartmentsComponent implements OnInit {
 
   onFileChange($event: any): void {
     const selectedFile = $event.target.files[0];
+    this.isUploading = true;
     this.uploadService.uploadFile(selectedFile).subscribe(value => {
+      this.isUploading = false;
       console.log(value);
-      this.images.push(value[0].path);
+      this.images.push(this.api_url + '/files/' + value[0].name);
+    }, () => {
+      this.isUploading = false;
     });
+  }
+
+  deleteImage(i: number): void {
+    const url = this.images[i];
+    this.images.splice(i, 1);
+    this.uploadService.deleteFile(url);
   }
 
   discard(): void {

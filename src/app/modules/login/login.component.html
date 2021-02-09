@@ -53,10 +53,10 @@
             </div>
           </div>
           <div class="mb-3 d-flex">
-            <a class="form-link ms-auto">change password</a>
+            <a routerLink="/changePassword" class="form-link ms-auto">change password</a>
           </div>
           <button (click)="login()" type="submit" class="btn btn-primary w-100 d-flex justify-content-center submit-btn">
-            <span *ngIf="!isSubmitting">Save changes</span>
+            <span *ngIf="!isSubmitting">Login</span>
             <app-spinner style="transform: scale(0.9)" *ngIf="isSubmitting"></app-spinner>
           </button>
         </div>

@@ -4,6 +4,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UploadService} from '../../../../core/services/upload.service';
 import {DepartmentsService} from '../../../../core/services/departments.service';
 import {Department} from '../../../../shared/model/department';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-edit-departments',
@@ -11,6 +12,7 @@ import {Department} from '../../../../shared/model/department';
   styleUrls: ['./edit-departments.component.css']
 })
 export class EditDepartmentsComponent implements OnInit {
+  private api_url: string = environment.api_url;
   public id: string | null;
   public tags: string[] = [];
   public images: string[] = [];
@@ -18,6 +20,7 @@ export class EditDepartmentsComponent implements OnInit {
   public statusHint = 0;
   public isSubmitting: boolean;
   public isDiscarding: boolean;
+  public isUploading: boolean;
   public isLoaded: boolean;
   private department: Department;
   constructor(private uploadService: UploadService,
@@ -42,6 +45,7 @@ export class EditDepartmentsComponent implements OnInit {
     );
     this.isSubmitting = false;
     this.isDiscarding = false;
+    this.isUploading = false;
     this.isLoaded = false;
   }
 
@@ -64,7 +68,7 @@ export class EditDepartmentsComponent implements OnInit {
   }
 
   submit(): boolean {
-    if (this.departmentForm.valid) {
+    if (this.departmentForm.valid && !this.isSubmitting) {
       this.department.name = this.departmentForm.get('name')?.value;
       this.department.description = this.departmentForm.get('description')?.value;
       this.department.images = this.images;
@@ -85,9 +89,20 @@ export class EditDepartmentsComponent implements OnInit {
 
   onFileChange($event: any): void {
     const selectedFile = $event.target.files[0];
+    this.isUploading = true;
     this.uploadService.uploadFile(selectedFile).subscribe(value => {
-      this.images.push(value[0].path);
+      this.isUploading = false;
+      console.log(value);
+      this.images.push(this.api_url + '/files/' + value[0].name);
+    }, () => {
+      this.isUploading = false;
     });
+  }
+
+  deleteImage(i: number): void {
+    const url = this.images[i];
+    this.images.splice(i, 1);
+    this.uploadService.deleteFile(url);
   }
 
   discard(): void {
