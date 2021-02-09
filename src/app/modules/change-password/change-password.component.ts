@@ -54,7 +54,7 @@ export class ChangePasswordComponent implements OnInit {
         this.isSubmitting = true;
         const changePasswordRequest: any = {};
         changePasswordRequest.email = this.email?.value;
-        changePasswordRequest.oldpassword = this.oldPassword?.value;
+        changePasswordRequest.oldPassword = this.oldPassword?.value;
         changePasswordRequest.newPassword = this.newPassword?.value;
         this.usersService.changePassword(changePasswordRequest).subscribe(value => {
           this.isSubmitting = false;
