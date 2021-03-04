@@ -1,3 +1,5 @@
+import {ProductDetails} from './product-details';
+
 export class Product {
   public id: string | undefined;
   public title: string | undefined;
@@ -11,4 +13,6 @@ export class Product {
   public chargeTaxes: boolean | undefined;
   public tags: string[] = [];
   public status: string | undefined;
+  public condition: string | undefined;
+  public information: ProductDetails = new ProductDetails();
 }

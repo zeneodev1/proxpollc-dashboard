@@ -43,6 +43,11 @@ export class AddProductsComponent implements OnInit {
         price: new FormControl('', Validators.required),
         costPerItem: new FormControl('', Validators.required),
         quantity: new FormControl('', Validators.required),
+        height: new FormControl('', Validators.required),
+        width: new FormControl('', Validators.required),
+        length: new FormControl('', Validators.required),
+        weight: new FormControl('', Validators.required),
+        condition: new FormControl('', Validators.required),
         chargeTaxes: new FormControl(false)
       }
     );
@@ -77,6 +82,11 @@ export class AddProductsComponent implements OnInit {
       product.price = this.productForm.get('price')?.value;
       product.status = this.productForm.get('status')?.value;
       product.quantity = this.productForm.get('quantity')?.value;
+      product.condition = this.productForm.get('condition')?.value;
+      product.information.height = this.productForm.get('height')?.value;
+      product.information.length = this.productForm.get('length')?.value;
+      product.information.width = this.productForm.get('width')?.value;
+      product.information.weight = this.productForm.get('weight')?.value;
       product.costPerItem = this.productForm.get('costPerItem')?.value;
       product.chargeTaxes = this.productForm.get('chargeTaxes')?.value;
       product.images = this.images;

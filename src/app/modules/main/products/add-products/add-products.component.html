@@ -133,6 +133,59 @@
 
           <app-card class="mt-4 d-block">
 
+            <strong>Details</strong>
+
+            <div class="row my-3">
+              <div class="col-6">
+                <label for="inputHeight" class="form-label">Height</label>
+                <div class="input-group">
+                  <input formControlName="height" placeholder="0" type="number" class="form-control" id="inputHeight">
+                </div>
+              </div>
+              <div class="col-6">
+                <label for="inputWidth" class="form-label">Width</label>
+                <div class="input-group">
+                  <input formControlName="width" placeholder="0" type="number" class="form-control" id="inputWidth">
+                </div>
+              </div>
+              <div class="col-6 mt-2">
+                <label for="inputLength" class="form-label">Length</label>
+                <div class="input-group">
+                  <input formControlName="length" placeholder="0" type="number" class="form-control" id="inputLength">
+                </div>
+              </div>
+            </div>
+
+            <div class="card-divider mt-4 mb-3"></div>
+
+            <div class="row my-3">
+              <div class="col-6">
+                <label for="inputWeight" class="form-label">Weight</label>
+                <div class="input-group">
+                  <input formControlName="weight" placeholder="0" type="number" class="form-control" id="inputWeight">
+                </div>
+              </div>
+            </div>
+
+            <div class="card-divider mt-4 mb-3"></div>
+
+            <div class="row my-3">
+              <div class="col-6">
+                <label for="selectCondition" class="form-label">Condition</label>
+                <div class="input-group">
+                  <select formControlName="condition" class="form-select" id="selectCondition" aria-label="Default select example">
+                    <option value="" selected >Select Category</option>
+                    <option value="New" selected >New</option>
+                    <option value="Used" selected >Used</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+          </app-card>
+
+          <app-card class="mt-4 d-block">
+
             <strong>Quantity</strong>
             <div class="row mt-3 mb-2">
               <div class="col-6">
@@ -142,6 +195,7 @@
             </div>
 
           </app-card>
+
 
         </div>
         <div class="col-lg-4">

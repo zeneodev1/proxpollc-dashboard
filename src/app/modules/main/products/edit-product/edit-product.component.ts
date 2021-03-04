@@ -9,6 +9,7 @@ import {CategoriesService} from '../../../../core/services/categories.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Product} from '../../../../shared/model/product';
 import {environment} from '../../../../../environments/environment';
+import {ProductDetails} from '../../../../shared/model/product-details';
 
 @Component({
   selector: 'app-edit-product',
@@ -45,7 +46,12 @@ export class EditProductComponent implements OnInit {
         price: new FormControl('', Validators.required),
         costPerItem: new FormControl('', Validators.required),
         quantity: new FormControl('', Validators.required),
-        chargeTaxes: new FormControl(false)
+        chargeTaxes: new FormControl(false),
+        height: new FormControl('', Validators.required),
+        width: new FormControl('', Validators.required),
+        length: new FormControl('', Validators.required),
+        weight: new FormControl('', Validators.required),
+        condition: new FormControl('', Validators.required)
       }
     );
     this.isSubmitting = false;
@@ -91,6 +97,11 @@ export class EditProductComponent implements OnInit {
     this.productForm.get('price')?.setValue(product.price);
     this.productForm.get('status')?.setValue(product.status);
     this.productForm.get('quantity')?.setValue(product.quantity);
+    this.productForm.get('condition')?.setValue(product.condition);
+    this.productForm.get('length')?.setValue(product.information.length);
+    this.productForm.get('width')?.setValue(product.information.width);
+    this.productForm.get('height')?.setValue(product.information.height);
+    this.productForm.get('weight')?.setValue(product.information.weight);
     this.productForm.get('costPerItem')?.setValue(product.costPerItem);
     this.productForm.get('chargeTaxes')?.setValue(product.chargeTaxes);
     this.images = this.product.images;
@@ -109,6 +120,12 @@ export class EditProductComponent implements OnInit {
       this.product.quantity = this.productForm.get('quantity')?.value;
       this.product.costPerItem = this.productForm.get('costPerItem')?.value;
       this.product.chargeTaxes = this.productForm.get('chargeTaxes')?.value;
+      this.product.condition = this.productForm.get('condition')?.value;
+      this.product.information = new ProductDetails();
+      this.product.information.height = this.productForm.get('height')?.value;
+      this.product.information.length = this.productForm.get('length')?.value;
+      this.product.information.width = this.productForm.get('width')?.value;
+      this.product.information.weight = this.productForm.get('weight')?.value;
       this.product.images = this.images;
       this.product.tags = this.tags;
       this.isSubmitting = true;
