@@ -15,4 +15,7 @@ export class Product {
   public status: string | undefined;
   public condition: string | undefined;
   public information: ProductDetails = new ProductDetails();
+  public productDescription: {
+    content: string
+  } = {content: ''};
 }

@@ -9,6 +9,7 @@ import {Category} from '../../../../shared/model/category';
 import {DepartmentsService} from '../../../../core/services/departments.service';
 import {CategoriesService} from '../../../../core/services/categories.service';
 import {environment} from '../../../../../environments/environment';
+import {AngularEditorConfig} from '@kolkov/angular-editor';
 
 @Component({
   selector: 'app-add-products',
@@ -27,6 +28,34 @@ export class AddProductsComponent implements OnInit {
   public loaded: boolean;
   public departments: Department[];
   public categories: Category[];
+  config: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '20rem',
+    minHeight: '15rem',
+    placeholder: 'Enter text here...',
+    translate: 'no',
+    defaultParagraphSeparator: 'p',
+    defaultFontName: 'Arial',
+    toolbarHiddenButtons: [
+      ['bold']
+    ],
+    customClasses: [
+      {
+        name: 'quote',
+        class: 'quote',
+      },
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+      {
+        name: 'titleText',
+        class: 'titleText',
+        tag: 'h1',
+      },
+    ]
+  };
   constructor(private uploadService: UploadService,
               private productsService: ProductsService,
               private departmentsService: DepartmentsService,
@@ -48,6 +77,7 @@ export class AddProductsComponent implements OnInit {
         length: new FormControl('', Validators.required),
         weight: new FormControl('', Validators.required),
         condition: new FormControl('', Validators.required),
+        content: new FormControl(''),
         chargeTaxes: new FormControl(false)
       }
     );
@@ -89,6 +119,7 @@ export class AddProductsComponent implements OnInit {
       product.information.weight = this.productForm.get('weight')?.value;
       product.costPerItem = this.productForm.get('costPerItem')?.value;
       product.chargeTaxes = this.productForm.get('chargeTaxes')?.value;
+      product.productDescription.content = this.productForm.get('content')?.value;
       product.images = this.images;
       product.tags = this.tags;
       this.isSubmitting = true;

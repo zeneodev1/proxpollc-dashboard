@@ -10,6 +10,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Product} from '../../../../shared/model/product';
 import {environment} from '../../../../../environments/environment';
 import {ProductDetails} from '../../../../shared/model/product-details';
+import {AngularEditorConfig} from '@kolkov/angular-editor';
 
 @Component({
   selector: 'app-edit-product',
@@ -29,6 +30,35 @@ export class EditProductComponent implements OnInit {
   public product: Product;
   public departments: Department[];
   public categories: Category[];
+  config: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '8rem',
+    minHeight: '8rem',
+    placeholder: 'Enter text here...',
+    translate: 'no',
+    defaultParagraphSeparator: 'p',
+    defaultFontName: 'Arial',
+    toolbarHiddenButtons: [
+      ['bold']
+    ],
+    customClasses: [
+      {
+        name: 'quote',
+        class: 'quote',
+      },
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+      {
+        name: 'titleText',
+        class: 'titleText',
+        tag: 'h1',
+      },
+    ]
+  };
+
   constructor(private uploadService: UploadService,
               private productsService: ProductsService,
               private departmentsService: DepartmentsService,
@@ -51,7 +81,8 @@ export class EditProductComponent implements OnInit {
         width: new FormControl('', Validators.required),
         length: new FormControl('', Validators.required),
         weight: new FormControl('', Validators.required),
-        condition: new FormControl('', Validators.required)
+        condition: new FormControl('', Validators.required),
+        content: new FormControl('')
       }
     );
     this.isSubmitting = false;
@@ -98,6 +129,7 @@ export class EditProductComponent implements OnInit {
     this.productForm.get('status')?.setValue(product.status);
     this.productForm.get('quantity')?.setValue(product.quantity);
     this.productForm.get('condition')?.setValue(product.condition);
+    this.productForm.get('content')?.setValue(!!product.productDescription ? product.productDescription.content : '');
     this.productForm.get('length')?.setValue(product.information.length);
     this.productForm.get('width')?.setValue(product.information.width);
     this.productForm.get('height')?.setValue(product.information.height);
@@ -126,6 +158,9 @@ export class EditProductComponent implements OnInit {
       this.product.information.length = this.productForm.get('length')?.value;
       this.product.information.width = this.productForm.get('width')?.value;
       this.product.information.weight = this.productForm.get('weight')?.value;
+      this.product.productDescription = {
+        content: this.productForm.get('content')?.value
+      };
       this.product.images = this.images;
       this.product.tags = this.tags;
       this.isSubmitting = true;

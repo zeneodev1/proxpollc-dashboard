@@ -33,6 +33,11 @@
               <textarea formControlName="description" placeholder="description" style="min-height: 150px" class="form-control" id="inputDescription"></textarea>
             </div>
 
+            <div class="mb-3">
+              <label for="inputDescription" class="form-label">Content</label>
+              <angular-editor formControlName="content" [config]="config" [placeholder]="'Enter text here...'" ></angular-editor>
+            </div>
+
           </app-card>
 
           <app-card class="mt-4 d-block">
