@@ -24,7 +24,6 @@
     "@angular/router": "~11.1.1",
     "@auth0/angular-jwt": "^5.0.2",
     "@kolkov/angular-editor": "^1.1.4",
-    "angular-froala-wysiwyg": "^3.2.6-1",
     "express": "^4.17.1",
     "path": "^0.12.7",
     "rxjs": "~6.6.0",
